@@ -1,11 +1,11 @@
 package info.devexchanges.snaprecyclerview;
 
-public class App {
+public class Item {
 
     private int drawable;
     private String name;
 
-    public App(String name, int drawable) {
+    public Item(String name, int drawable) {
         this.drawable = drawable;
         this.name = name;
     }

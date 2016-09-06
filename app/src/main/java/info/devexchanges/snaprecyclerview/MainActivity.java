@@ -9,11 +9,10 @@ import android.support.v7.widget.SnapHelper;
 import android.view.Gravity;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ArrayList<App> apps;
+    private ArrayList<Item> items;
     private RecyclerView recyclerView;
 
     @Override
@@ -58,21 +57,21 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         recyclerView.setHasFixedSize(true);
 
-        SnapRecyclerAdapter adapter = new SnapRecyclerAdapter(this, apps);
+        SnapRecyclerAdapter adapter = new SnapRecyclerAdapter(this, items);
         recyclerView.setAdapter(adapter);
     }
 
     private void createApps() {
-        apps = new ArrayList<>();
-        apps.add(new App("Google+", R.drawable.google_plus));
-        apps.add(new App("Facebook", R.drawable.facebook));
-        apps.add(new App("LinkedIn", R.drawable.linkedin));
-        apps.add(new App("Youtube", R.drawable.youtube));
-        apps.add(new App("Instagram", R.drawable.instagram));
-        apps.add(new App("Skype", R.drawable.skype));
-        apps.add(new App("Twitter", R.drawable.twitter));
-        apps.add(new App("Wikipedia", R.drawable.wikipedia));
-        apps.add(new App("Whats app", R.drawable.what_apps));
-        apps.add(new App("Twitter", R.drawable.pokemon_go));
+        items = new ArrayList<>();
+        items.add(new Item("Google+", R.drawable.google_plus));
+        items.add(new Item("Facebook", R.drawable.facebook));
+        items.add(new Item("LinkedIn", R.drawable.linkedin));
+        items.add(new Item("Youtube", R.drawable.youtube));
+        items.add(new Item("Instagram", R.drawable.instagram));
+        items.add(new Item("Skype", R.drawable.skype));
+        items.add(new Item("Twitter", R.drawable.twitter));
+        items.add(new Item("Wikipedia", R.drawable.wikipedia));
+        items.add(new Item("Whats app", R.drawable.what_apps));
+        items.add(new Item("Pokemon Go", R.drawable.pokemon_go));
     }
 }

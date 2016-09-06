@@ -13,18 +13,18 @@ import android.view.View;
 
 public class GravitySnapHelper extends LinearSnapHelper {
 
-    private OrientationHelper mVerticalHelper;
-    private OrientationHelper mHorizontalHelper;
-    private int mGravity;
-    private boolean mIsRtl;
+    private OrientationHelper verticalHelper;
+    private OrientationHelper horizontalHelper;
+    private int gravity;
+    private boolean isSupportRtL;
 
     @SuppressLint("RtlHardcoded")
     public GravitySnapHelper(int gravity) {
-        mGravity = gravity;
-        if (mGravity == Gravity.LEFT) {
-            mGravity = Gravity.START;
-        } else if (mGravity == Gravity.RIGHT) {
-            mGravity = Gravity.END;
+        this.gravity = gravity;
+        if (this.gravity == Gravity.LEFT) {
+            this.gravity = Gravity.START;
+        } else if (this.gravity == Gravity.RIGHT) {
+            this.gravity = Gravity.END;
         }
     }
 
@@ -32,7 +32,7 @@ public class GravitySnapHelper extends LinearSnapHelper {
     public void attachToRecyclerView(@Nullable RecyclerView recyclerView)
             throws IllegalStateException {
         if (recyclerView != null) {
-            mIsRtl = true;
+            isSupportRtL = recyclerView.getContext().getResources().getBoolean(R.bool.is_rtl);
         }
         super.attachToRecyclerView(recyclerView);
     }
@@ -43,7 +43,7 @@ public class GravitySnapHelper extends LinearSnapHelper {
         int[] out = new int[2];
 
         if (layoutManager.canScrollHorizontally()) {
-            if (mGravity == Gravity.START) {
+            if (gravity == Gravity.START) {
                 out[0] = distanceToStart(targetView, getHorizontalHelper(layoutManager));
             } else { // END
                 out[0] = distanceToEnd(targetView, getHorizontalHelper(layoutManager));
@@ -53,7 +53,7 @@ public class GravitySnapHelper extends LinearSnapHelper {
         }
 
         if (layoutManager.canScrollVertically()) {
-            if (mGravity == Gravity.TOP) {
+            if (gravity == Gravity.TOP) {
                 out[1] = distanceToStart(targetView, getVerticalHelper(layoutManager));
             } else { // BOTTOM
                 out[1] = distanceToEnd(targetView, getVerticalHelper(layoutManager));
@@ -67,7 +67,7 @@ public class GravitySnapHelper extends LinearSnapHelper {
     @Override
     public View findSnapView(RecyclerView.LayoutManager layoutManager) {
         if (layoutManager instanceof LinearLayoutManager) {
-            switch (mGravity) {
+            switch (gravity) {
                 case Gravity.START:
                     return findStartView(layoutManager, getHorizontalHelper(layoutManager));
                 case Gravity.TOP:
@@ -83,14 +83,14 @@ public class GravitySnapHelper extends LinearSnapHelper {
     }
 
     private int distanceToStart(View targetView, OrientationHelper helper) {
-        if (mIsRtl) {
+        if (isSupportRtL) {
             return distanceToEnd(targetView, helper);
         }
         return helper.getDecoratedStart(targetView) - helper.getStartAfterPadding();
     }
 
     private int distanceToEnd(View targetView, OrientationHelper helper) {
-        if (mIsRtl) {
+        if (isSupportRtL) {
             return helper.getDecoratedStart(targetView) - helper.getStartAfterPadding();
         }
         return helper.getDecoratedEnd(targetView) - helper.getEndAfterPadding();
@@ -153,17 +153,17 @@ public class GravitySnapHelper extends LinearSnapHelper {
     }
 
     private OrientationHelper getVerticalHelper(RecyclerView.LayoutManager layoutManager) {
-        if (mVerticalHelper == null) {
-            mVerticalHelper = OrientationHelper.createVerticalHelper(layoutManager);
+        if (verticalHelper == null) {
+            verticalHelper = OrientationHelper.createVerticalHelper(layoutManager);
         }
-        return mVerticalHelper;
+        return verticalHelper;
     }
 
     private OrientationHelper getHorizontalHelper(RecyclerView.LayoutManager layoutManager) {
-        if (mHorizontalHelper == null) {
-            mHorizontalHelper = OrientationHelper.createHorizontalHelper(layoutManager);
+        if (horizontalHelper == null) {
+            horizontalHelper = OrientationHelper.createHorizontalHelper(layoutManager);
         }
-        return mHorizontalHelper;
+        return horizontalHelper;
     }
 
 }

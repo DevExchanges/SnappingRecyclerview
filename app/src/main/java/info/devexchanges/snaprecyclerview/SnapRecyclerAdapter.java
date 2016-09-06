@@ -14,12 +14,12 @@ public class SnapRecyclerAdapter extends RecyclerView.Adapter<SnapRecyclerAdapte
 
     private LayoutInflater layoutInflater;
     private Context context;
-    private ArrayList<App> apps;
+    private ArrayList<Item> items;
 
-    public SnapRecyclerAdapter(Context context, ArrayList<App> apps) {
+    public SnapRecyclerAdapter(Context context, ArrayList<Item> items) {
         this.layoutInflater = LayoutInflater.from(context);
         this.context = context;
-        this.apps = apps;
+        this.items = items;
     }
 
     @Override
@@ -31,15 +31,15 @@ public class SnapRecyclerAdapter extends RecyclerView.Adapter<SnapRecyclerAdapte
 
     @Override
     public void onBindViewHolder(final ReyclerViewHolder holder, int position) {
-        App app = apps.get(position);
+        Item item = items.get(position);
 
-        holder.image.setImageResource(app.getDrawable());
-        holder.appName.setText(app.getName());
+        holder.image.setImageResource(item.getDrawable());
+        holder.appName.setText(item.getName());
     }
 
     @Override
     public int getItemCount() {
-        return apps.size();
+        return items.size();
     }
 
     class ReyclerViewHolder extends RecyclerView.ViewHolder {
